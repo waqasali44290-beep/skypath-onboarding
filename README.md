@@ -18,6 +18,7 @@ I used Flow and validation rules wherever they could do the job, and Apex only f
 | Business days (stretch goal) | `OnboardingBusinessDaysService` fills `Business_Days_*` fields using the **SkyPath Business Days** Business Hours (full days Monday to Friday) and the holidays attached to it, via `BusinessHours.diff()`. Formulas and flows can't see holidays, so this part is Apex. |
 | Stage history | After-save flow writes an `Onboarding_Stage_History__c` row for every move, including QA rework, with time spent in the previous stage. |
 | CSM assignment | Apex (`OnboardingAssignmentService`), called from a single trigger on `Onboarding__c`. See below. |
+| Leadership visibility | **Onboarding Tracker** dashboard (Dashboards tab) built on five reports in the *Onboarding Reports* folder. See below. |
 | Record page | Lightning page "Revinfinity \| Onboarding Tracker" with Path, a Today tab, and a Stage History tab. |
 
 ### Why assignment is Apex
@@ -33,6 +34,23 @@ How it decides:
 5. The CSMs' active onboarding rows are read with `FOR UPDATE`, so a second batch running at the same time waits for this one to commit instead of giving away the same last slot. (Salesforce doesn't allow locking User rows, which is why the lock is on the onboardings.)
 
 Queue, group and notification type are looked up by developer name from the `Onboarding_Setting__mdt` "Default" record. There are no hardcoded Ids anywhere.
+
+### When an onboarding stops counting towards a CSM
+
+An onboarding counts towards its owner's workload while **Active** (`Is_Active__c`) is ticked, which is every stage before **Post-Launch Review**. Moving it to Post-Launch Review frees the slot straight away. Go Live still counts, because post-launch work is still to come. A QA failure going back to Implementation doesn't change the count. Reassigning or deleting an onboarding also takes it off that CSM's count. Lowering a CSM's capacity stops new assignments, but it doesn't take away onboardings they already own.
+
+### Dashboard
+
+**Onboarding Tracker** (Dashboards > Onboarding Dashboards). It's a dynamic dashboard, so CSMs see their own onboardings and managers and admins see everything.
+
+| Component | Question it answers | Report |
+| --- | --- | --- |
+| Active Onboardings, Waiting in Backlog | How much is in flight, and is anyone waiting for an owner? | Active Onboardings by Stage, Onboarding Backlog |
+| CSM Workload | Who is carrying what, including the backlog queue? | Active Onboardings by Owner |
+| Where Customers Are | How many customers are in each stage? | Active Onboardings by Stage |
+| Where Customers Get Stuck | Which stage are current customers waiting longest in? | Active Onboardings by Stage (average days in current stage) |
+| Average Days per Stage | Which stage is slowest, including repeat visits after QA rework? | Average Days per Stage (from stage history) |
+| Avg Business Days to Go Live, QA Reworks | How fast do we launch, and how often does QA fail? | Time to Go Live, Active Onboardings by Owner |
 
 ### Leaving room for other teams
 
@@ -145,6 +163,7 @@ force-app/main/default/
   applications/        Onboarding Tracker app
   classes/             assignment service, trigger handler, tests
   customMetadata/      Onboarding_Setting.Default
+  dashboards/ reports/ Onboarding Tracker dashboard and its five reports
   flexipages/          Revinfinity | Onboarding Tracker record page
   flows/               the three record-triggered flows
   globalValueSets/     Onboarding_Stage (shared by Stage and stage history)
