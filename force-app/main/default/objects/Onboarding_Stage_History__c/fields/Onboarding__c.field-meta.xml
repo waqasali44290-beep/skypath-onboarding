@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Onboarding__c</fullName>
+    <description>The onboarding this stage change belongs to.</description>
+    <label>Onboarding</label>
+    <referenceTo>Onboarding__c</referenceTo>
+    <relationshipLabel>Stage History</relationshipLabel>
+    <relationshipName>Stage_History</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

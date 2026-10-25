@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Group xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>CS managers. Members of the onboarding backlog queue and recipients of backlog alerts.</description>
+    <doesIncludeBosses>false</doesIncludeBosses>
+    <name>CS Managers</name>
+</Group>

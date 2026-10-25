@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lock_Opportunity</fullName>
+    <active>true</active>
+    <description>An onboarding belongs to exactly one deal for its whole life.</description>
+    <errorConditionFormula>AND(
+  NOT($Permission.Bypass_Onboarding_Automation),
+  ISCHANGED(Opportunity__c)
+)</errorConditionFormula>
+    <errorDisplayField>Opportunity__c</errorDisplayField>
+    <errorMessage>The deal on an onboarding can't be changed.</errorMessage>
+</ValidationRule>

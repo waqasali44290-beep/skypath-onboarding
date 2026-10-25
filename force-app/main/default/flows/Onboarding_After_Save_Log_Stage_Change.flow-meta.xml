@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>62.0</apiVersion>
+    <description>Writes an Onboarding Stage History row when an onboarding is created or its stage changes. The first-reached dates on Onboarding answer "when did we first get here"; these rows keep every move, including QA rework, and how long each visit lasted.</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>DaysInPreviousStage</name>
+        <dataType>Number</dataType>
+        <expression>{!$Record.Current_Stage_Entered_On__c} - {!$Record__Prior.Current_Stage_Entered_On__c}</expression>
+        <scale>1</scale>
+    </formulas>
+    <formulas>
+        <name>IsRework</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(TEXT({!$Record__Prior.Stage__c}) = &quot;QA_Review&quot;, TEXT({!$Record.Stage__c}) = &quot;Implementation&quot;)</expression>
+    </formulas>
+    <interviewLabel>Onboarding After Save Log Stage Change {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Onboarding - After Save - Log Stage Change</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <name>Create_Stage_History_Entry</name>
+        <label>Create Stage History Entry</label>
+        <locationX>176</locationX>
+        <locationY>323</locationY>
+        <inputAssignments>
+            <field>Changed_On__c</field>
+            <value>
+                <elementReference>$Record.Current_Stage_Entered_On__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Days_In_Previous_Stage__c</field>
+            <value>
+                <elementReference>DaysInPreviousStage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>From_Stage__c</field>
+            <value>
+                <elementReference>$Record__Prior.Stage__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Is_Rework__c</field>
+            <value>
+                <elementReference>IsRework</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Onboarding__c</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>To_Stage__c</field>
+            <value>
+                <elementReference>$Record.Stage__c</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Onboarding_Stage_History__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Create_Stage_History_Entry</targetReference>
+        </connector>
+        <filterFormula>OR(ISNEW(), ISCHANGED({!$Record.Stage__c}))</filterFormula>
+        <object>Onboarding__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>62.0</apiVersion>
+    <assignments>
+        <name>Set_Derived_Fields</name>
+        <label>Set Derived Fields</label>
+        <locationX>176</locationX>
+        <locationY>287</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Name</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>OnboardingName</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Opportunity_Key__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.Opportunity__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Current_Stage_Entered_On__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>CurrentStageEnteredOn</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.QA_Rework_Count__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>QaReworkCount</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Kickoff_Scheduled_Reached_On__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>KickoffScheduledReachedOn</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Gathering_Info_Reached_On__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>GatheringInfoReachedOn</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Implementation_Reached_On__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>ImplementationReachedOn</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.QA_Review_Reached_On__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>QaReviewReachedOn</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Go_Live_Reached_On__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>GoLiveReachedOn</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Post_Launch_Review_Reached_On__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>PostLaunchReviewReachedOn</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <description>Keeps derived fields on Onboarding in sync on every save: the record name (customer + target go-live date), the unique Opportunity key, the first-reached date for each stage (written once, never overwritten), when the current stage was entered, and the QA rework count.</description>
+    <environments>Default</environments>
+    <formulas>
+        <description>Customer name and launch date, so list views and global search show both. Falls back to the deal name when the deal has no account.</description>
+        <name>OnboardingName</name>
+        <dataType>String</dataType>
+        <expression>LEFT(BLANKVALUE({!$Record.Opportunity__r.Account.Name}, {!$Record.Opportunity__r.Name}) &amp; &quot; - Go-Live &quot; &amp; TEXT({!$Record.Target_Go_Live_Date__c}), 80)</expression>
+    </formulas>
+    <formulas>
+        <description>Resets to now whenever the stage changes, including moves back from QA.</description>
+        <name>CurrentStageEnteredOn</name>
+        <dataType>DateTime</dataType>
+        <expression>IF(OR(ISBLANK({!$Record.Current_Stage_Entered_On__c}), TEXT({!$Record__Prior.Stage__c}) &lt;&gt; TEXT({!$Record.Stage__c})), NOW(), {!$Record.Current_Stage_Entered_On__c})</expression>
+    </formulas>
+    <formulas>
+        <name>QaReworkCount</name>
+        <dataType>Number</dataType>
+        <expression>IF(AND(TEXT({!$Record__Prior.Stage__c}) = &quot;QA_Review&quot;, TEXT({!$Record.Stage__c}) = &quot;Implementation&quot;), BLANKVALUE({!$Record.QA_Rework_Count__c}, 0) + 1, BLANKVALUE({!$Record.QA_Rework_Count__c}, 0))</expression>
+        <scale>0</scale>
+    </formulas>
+    <formulas>
+        <name>KickoffScheduledReachedOn</name>
+        <dataType>DateTime</dataType>
+        <expression>IF(AND(ISBLANK({!$Record.Kickoff_Scheduled_Reached_On__c}), TEXT({!$Record.Stage__c}) = &quot;Kickoff_Scheduled&quot;), NOW(), {!$Record.Kickoff_Scheduled_Reached_On__c})</expression>
+    </formulas>
+    <formulas>
+        <name>GatheringInfoReachedOn</name>
+        <dataType>DateTime</dataType>
+        <expression>IF(AND(ISBLANK({!$Record.Gathering_Info_Reached_On__c}), TEXT({!$Record.Stage__c}) = &quot;Gathering_Info&quot;), NOW(), {!$Record.Gathering_Info_Reached_On__c})</expression>
+    </formulas>
+    <formulas>
+        <name>ImplementationReachedOn</name>
+        <dataType>DateTime</dataType>
+        <expression>IF(AND(ISBLANK({!$Record.Implementation_Reached_On__c}), TEXT({!$Record.Stage__c}) = &quot;Implementation&quot;), NOW(), {!$Record.Implementation_Reached_On__c})</expression>
+    </formulas>
+    <formulas>
+        <name>QaReviewReachedOn</name>
+        <dataType>DateTime</dataType>
+        <expression>IF(AND(ISBLANK({!$Record.QA_Review_Reached_On__c}), TEXT({!$Record.Stage__c}) = &quot;QA_Review&quot;), NOW(), {!$Record.QA_Review_Reached_On__c})</expression>
+    </formulas>
+    <formulas>
+        <name>GoLiveReachedOn</name>
+        <dataType>DateTime</dataType>
+        <expression>IF(AND(ISBLANK({!$Record.Go_Live_Reached_On__c}), TEXT({!$Record.Stage__c}) = &quot;Go_Live&quot;), NOW(), {!$Record.Go_Live_Reached_On__c})</expression>
+    </formulas>
+    <formulas>
+        <name>PostLaunchReviewReachedOn</name>
+        <dataType>DateTime</dataType>
+        <expression>IF(AND(ISBLANK({!$Record.Post_Launch_Review_Reached_On__c}), TEXT({!$Record.Stage__c}) = &quot;Post_Launch_Review&quot;), NOW(), {!$Record.Post_Launch_Review_Reached_On__c})</expression>
+    </formulas>
+    <interviewLabel>Onboarding Before Save Set Fields {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Onboarding - Before Save - Set Fields</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Set_Derived_Fields</targetReference>
+        </connector>
+        <object>Onboarding__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

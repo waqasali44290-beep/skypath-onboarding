@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Require_Implementation_Notes</fullName>
+    <active>true</active>
+    <description>Implementation notes must be captured before the onboarding moves to QA / Review, and cannot be cleared afterwards.</description>
+    <errorConditionFormula>AND(
+  NOT($Permission.Bypass_Onboarding_Automation),
+  Stage_Number__c &gt;= 4,
+  ISBLANK(Implementation_Notes__c)
+)</errorConditionFormula>
+    <errorDisplayField>Implementation_Notes__c</errorDisplayField>
+    <errorMessage>Add Implementation notes before moving on to QA / Review.</errorMessage>
+</ValidationRule>

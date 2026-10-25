@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Implementation_Notes__c</fullName>
+    <inlineHelpText>What was configured and anything QA should know. Required before the onboarding can move to QA / Review.</inlineHelpText>
+    <label>Implementation Notes</label>
+    <length>32768</length>
+    <trackHistory>false</trackHistory>
+    <type>LongTextArea</type>
+    <visibleLines>6</visibleLines>
+</CustomField>

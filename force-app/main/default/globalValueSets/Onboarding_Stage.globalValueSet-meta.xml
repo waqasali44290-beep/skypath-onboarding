@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Kickoff_Scheduled</fullName>
+        <default>false</default>
+        <label>Kickoff Scheduled</label>
+    </customValue>
+    <customValue>
+        <fullName>Gathering_Info</fullName>
+        <default>false</default>
+        <label>Gathering Info</label>
+    </customValue>
+    <customValue>
+        <fullName>Implementation</fullName>
+        <default>false</default>
+        <label>Implementation</label>
+    </customValue>
+    <customValue>
+        <fullName>QA_Review</fullName>
+        <default>false</default>
+        <label>QA / Review</label>
+    </customValue>
+    <customValue>
+        <fullName>Go_Live</fullName>
+        <default>false</default>
+        <label>Go Live</label>
+    </customValue>
+    <customValue>
+        <fullName>Post_Launch_Review</fullName>
+        <default>false</default>
+        <label>Post-Launch Review</label>
+    </customValue>
+    <description>Onboarding stages in process order. Shared by Onboarding.Stage and the From/To fields on Onboarding Stage History so reports group the same way.</description>
+    <masterLabel>Onboarding Stage</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomNotificationType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customNotifTypeName>Onboarding Backlog Alert</customNotifTypeName>
+    <description>Sent to CS managers when new onboardings land in the backlog because every CSM is at capacity.</description>
+    <desktop>true</desktop>
+    <masterLabel>Onboarding Backlog Alert</masterLabel>
+    <mobile>true</mobile>
+</CustomNotificationType>

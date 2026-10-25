@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Target_Go_Live_Date__c</fullName>
+    <description>Planned launch date. Defaults to the deal close date plus Onboarding_Setting__mdt.Days_To_Go_Live__c. Part of the record name.</description>
+    <inlineHelpText>When the customer is due to launch. Changing it updates the onboarding name.</inlineHelpText>
+    <label>Target Go-Live Date</label>
+    <required>true</required>
+    <trackHistory>true</trackHistory>
+    <type>Date</type>
+</CustomField>

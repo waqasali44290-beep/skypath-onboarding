@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Require_Kickoff_On_Create</fullName>
+    <active>true</active>
+    <description>Every onboarding starts at Kickoff Scheduled.</description>
+    <errorConditionFormula>AND(
+  NOT($Permission.Bypass_Onboarding_Automation),
+  ISNEW(),
+  NOT(ISPICKVAL(Stage__c, &quot;Kickoff_Scheduled&quot;))
+)</errorConditionFormula>
+    <errorDisplayField>Stage__c</errorDisplayField>
+    <errorMessage>New onboardings start at Kickoff Scheduled.</errorMessage>
+</ValidationRule>

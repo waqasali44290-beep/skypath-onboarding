@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lock_Stage_Reached_Dates</fullName>
+    <active>true</active>
+    <description>The date a stage was first reached is a historical fact. Once set it cannot be changed.</description>
+    <errorConditionFormula>AND(
+  NOT($Permission.Bypass_Onboarding_Automation),
+  OR(
+    AND(ISCHANGED(Kickoff_Scheduled_Reached_On__c), NOT(ISBLANK(PRIORVALUE(Kickoff_Scheduled_Reached_On__c)))),
+    AND(ISCHANGED(Gathering_Info_Reached_On__c), NOT(ISBLANK(PRIORVALUE(Gathering_Info_Reached_On__c)))),
+    AND(ISCHANGED(Implementation_Reached_On__c), NOT(ISBLANK(PRIORVALUE(Implementation_Reached_On__c)))),
+    AND(ISCHANGED(QA_Review_Reached_On__c), NOT(ISBLANK(PRIORVALUE(QA_Review_Reached_On__c)))),
+    AND(ISCHANGED(Go_Live_Reached_On__c), NOT(ISBLANK(PRIORVALUE(Go_Live_Reached_On__c)))),
+    AND(ISCHANGED(Post_Launch_Review_Reached_On__c), NOT(ISBLANK(PRIORVALUE(Post_Launch_Review_Reached_On__c))))
+  )
+)</errorConditionFormula>
+    <errorMessage>Stage reached dates are history and can't be changed once recorded.</errorMessage>
+</ValidationRule>

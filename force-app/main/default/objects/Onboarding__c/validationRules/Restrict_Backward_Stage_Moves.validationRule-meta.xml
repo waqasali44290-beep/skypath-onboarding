@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Restrict_Backward_Stage_Moves</fullName>
+    <active>true</active>
+    <description>The only backward move allowed is QA / Review back to Implementation (QA failed). Everything else moves forward.</description>
+    <errorConditionFormula>AND(
+  NOT($Permission.Bypass_Onboarding_Automation),
+  NOT(ISNEW()),
+  ISCHANGED(Stage__c),
+  Stage_Number__c &lt; CASE(TEXT(PRIORVALUE(Stage__c)),
+  &quot;Kickoff_Scheduled&quot;, 1,
+  &quot;Gathering_Info&quot;, 2,
+  &quot;Implementation&quot;, 3,
+  &quot;QA_Review&quot;, 4,
+  &quot;Go_Live&quot;, 5,
+  &quot;Post_Launch_Review&quot;, 6,
+  0),
+  NOT(AND(
+    ISPICKVAL(PRIORVALUE(Stage__c), &quot;QA_Review&quot;),
+    ISPICKVAL(Stage__c, &quot;Implementation&quot;)
+  ))
+)</errorConditionFormula>
+    <errorDisplayField>Stage__c</errorDisplayField>
+    <errorMessage>Onboardings can only move back from QA / Review to Implementation.</errorMessage>
+</ValidationRule>

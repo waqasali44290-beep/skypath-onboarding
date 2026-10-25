@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>Bypass_Onboarding_Automation</name>
+    </customPermissions>
+    <description>Temporarily assign for data migrations or fixes. Skips onboarding validation rules, onboarding creation from won deals and CSM assignment. Remove when done.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Onboarding - Automation Bypass</label>
+</PermissionSet>

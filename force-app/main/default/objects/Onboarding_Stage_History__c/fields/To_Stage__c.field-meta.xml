@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>To_Stage__c</fullName>
+    <description>Stage after the change.</description>
+    <label>To Stage</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+    <restricted>true</restricted>
+    <valueSetName>Onboarding_Stage</valueSetName>
+    </valueSet>
+</CustomField>

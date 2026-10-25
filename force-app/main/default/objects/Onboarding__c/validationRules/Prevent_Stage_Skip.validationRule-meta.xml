@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Prevent_Stage_Skip</fullName>
+    <active>true</active>
+    <description>Stages move forward one step at a time.</description>
+    <errorConditionFormula>AND(
+  NOT($Permission.Bypass_Onboarding_Automation),
+  NOT(ISNEW()),
+  ISCHANGED(Stage__c),
+  Stage_Number__c - CASE(TEXT(PRIORVALUE(Stage__c)),
+  &quot;Kickoff_Scheduled&quot;, 1,
+  &quot;Gathering_Info&quot;, 2,
+  &quot;Implementation&quot;, 3,
+  &quot;QA_Review&quot;, 4,
+  &quot;Go_Live&quot;, 5,
+  &quot;Post_Launch_Review&quot;, 6,
+  0) &gt; 1
+)</errorConditionFormula>
+    <errorDisplayField>Stage__c</errorDisplayField>
+    <errorMessage>Stages can't be skipped. Move to the next stage first.</errorMessage>
+</ValidationRule>

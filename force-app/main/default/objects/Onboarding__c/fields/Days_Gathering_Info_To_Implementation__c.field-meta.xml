@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Days_Gathering_Info_To_Implementation__c</fullName>
+    <description>Calendar days between first reaching Gathering_Info and first reaching Implementation. Blank until both dates exist.</description>
+    <formula>ROUND(Implementation_Reached_On__c - Gathering_Info_Reached_On__c, 1)</formula>
+    <formulaTreatBlanksAs>BlankAsBlank</formulaTreatBlanksAs>
+    <label>Days: Gathering Info to Implementation</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>1</scale>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Is_CSM__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Marks the user as a Customer Success Manager who can be assigned new onboardings. Admins maintain this; no deployment needed.</description>
+    <inlineHelpText>Tick to include this user in automatic onboarding assignment.</inlineHelpText>
+    <label>CSM</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <brand>
+        <headerColor>#5B2BD9</headerColor>
+        <shouldOverrideOrgTheme>false</shouldOverrideOrgTheme>
+    </brand>
+    <description>Revinfinity | Onboarding Tracker. Customer onboarding for SkyPath AI Customer Success.</description>
+    <formFactors>Large</formFactors>
+    <label>Onboarding Tracker</label>
+    <navType>Standard</navType>
+    <tabs>Onboarding__c</tabs>
+    <tabs>standard-Opportunity</tabs>
+    <tabs>standard-report</tabs>
+    <tabs>standard-Dashboard</tabs>
+    <uiType>Lightning</uiType>
+</CustomApplication>

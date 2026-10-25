@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Days_QA_To_Go_Live__c</fullName>
+    <description>Calendar days between first reaching QA_Review and first reaching Go_Live. Blank until both dates exist.</description>
+    <formula>ROUND(Go_Live_Reached_On__c - QA_Review_Reached_On__c, 1)</formula>
+    <formulaTreatBlanksAs>BlankAsBlank</formulaTreatBlanksAs>
+    <label>Days: QA to Go Live</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>1</scale>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

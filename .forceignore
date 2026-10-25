@@ -1,0 +1,10 @@
+# Files the Salesforce CLI should never push or pull
+package.xml
+**/jsconfig.json
+**/.eslintrc.json
+**/__tests__/**
+**/tsconfig.json
+**/*.ts
+
+# Profiles are org-specific; access is granted through permission sets
+**/profiles/**

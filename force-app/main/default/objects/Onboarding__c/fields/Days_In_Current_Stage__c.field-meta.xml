@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Days_In_Current_Stage__c</fullName>
+    <description>Whole days since the onboarding entered its current stage.</description>
+    <formula>FLOOR(NOW() - Current_Stage_Entered_On__c)</formula>
+    <formulaTreatBlanksAs>BlankAsBlank</formulaTreatBlanksAs>
+    <inlineHelpText>Days spent in the current stage so far.</inlineHelpText>
+    <label>Days in Current Stage</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

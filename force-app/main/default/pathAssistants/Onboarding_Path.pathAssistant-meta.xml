@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PathAssistant xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <entityName>Onboarding__c</entityName>
+    <fieldName>Stage__c</fieldName>
+    <masterLabel>Onboarding Path</masterLabel>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;Confirm the kickoff date with the customer and check the target go-live date is realistic.&lt;/p&gt;</info>
+        <picklistValueName>Kickoff_Scheduled</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;Capture requirements, integrations and stakeholders in &lt;b&gt;Gathering Info Notes&lt;/b&gt;. You can&amp;#39;t move to Implementation without them.&lt;/p&gt;</info>
+        <picklistValueName>Gathering_Info</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;Record what was configured in &lt;b&gt;Implementation Notes&lt;/b&gt; so QA knows what to check. Required before QA / Review.&lt;/p&gt;</info>
+        <picklistValueName>Implementation</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;If QA fails, move the onboarding back to &lt;b&gt;Implementation&lt;/b&gt;. The rework is counted and the original stage dates are kept.&lt;/p&gt;</info>
+        <picklistValueName>QA_Review</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;Confirm the customer is live and using the platform.&lt;/p&gt;</info>
+        <picklistValueName>Go_Live</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;Run the post-launch review. The onboarding no longer counts towards your active workload.&lt;/p&gt;</info>
+        <picklistValueName>Post_Launch_Review</picklistValueName>
+    </pathAssistantSteps>
+    <recordTypeName>__MASTER__</recordTypeName>
+</PathAssistant>
