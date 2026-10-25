@@ -52,9 +52,14 @@ private class OnboardingAssignmentServiceTest {
         inactiveCsm.IsActive = false;
         User zeroCapacityCsm = OnboardingTestDataFactory.buildUser('Finley', true, 0);
         User noCapacityCsm = OnboardingTestDataFactory.buildUser('Gray', true, null);
+        List<User> ineligible = new List<User>{ nonCsm, inactiveCsm, zeroCapacityCsm, noCapacityCsm };
         System.runAs(new User(Id = UserInfo.getUserId())) {
-            insert new List<User>{ nonCsm, inactiveCsm, zeroCapacityCsm, noCapacityCsm };
+            insert ineligible;
         }
+        // Put the ineligible users in scope too, so the service itself has to filter them out.
+        List<User> inScope = new List<User>(ineligible);
+        inScope.add(csms.get('Casey'));
+        OnboardingTestDataFactory.limitAssignmentTo(inScope);
         Account account = OnboardingTestDataFactory.createAccount('Contoso');
         List<Opportunity> deals = OnboardingTestDataFactory.createOpenOpportunities(account.Id, 3);
 

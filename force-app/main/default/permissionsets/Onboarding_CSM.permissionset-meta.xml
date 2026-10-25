@@ -7,6 +7,36 @@
     <description>For Customer Success Managers. Work onboardings they own: move stages and capture notes. Stage dates and counters are read-only.</description>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Onboarding__c.Business_Days_Go_Live_To_Post_Launch__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Onboarding__c.Business_Days_Implementation_To_QA__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Onboarding__c.Business_Days_Info_To_Implementation__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Onboarding__c.Business_Days_Kickoff_To_Gathering_Info__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Onboarding__c.Business_Days_Kickoff_To_Go_Live__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Onboarding__c.Business_Days_QA_To_Go_Live__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Onboarding__c.Current_Stage_Entered_On__c</field>
         <readable>true</readable>
     </fieldPermissions>

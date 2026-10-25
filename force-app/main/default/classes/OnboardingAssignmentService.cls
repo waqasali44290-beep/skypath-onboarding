@@ -24,6 +24,11 @@ public without sharing class OnboardingAssignmentService {
     @TestVisible
     private static Integer notificationsSent = 0;
 
+    // Tests set this to the users they create. User records are visible to tests (other data
+    // isn't), so without it the org's real CSMs would change the results.
+    @TestVisible
+    private static Set<Id> eligibleUserIdsForTest;
+
     private static Onboarding_Setting__mdt cachedSettings;
     private static Id cachedBacklogQueueId;
 
@@ -112,7 +117,9 @@ public without sharing class OnboardingAssignmentService {
             FROM User
             WHERE Is_CSM__c = TRUE AND IsActive = TRUE AND Max_Active_Onboardings__c > 0
         ]) {
-            workloadByUserId.put(csm.Id, new CsmWorkload(csm));
+            if (eligibleUserIdsForTest == null || eligibleUserIdsForTest.contains(csm.Id)) {
+                workloadByUserId.put(csm.Id, new CsmWorkload(csm));
+            }
         }
         if (workloadByUserId.isEmpty()) {
             return new List<CsmWorkload>();

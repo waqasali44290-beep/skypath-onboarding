@@ -14,28 +14,24 @@ public class OnboardingTestDataFactory {
     };
 
     /**
-     * Real CSMs configured in the org would skew assignment results, so tests switch them off.
-     * The change is rolled back with the rest of the test.
+     * Creates CSM users and limits assignment to them, so real CSMs in the org can't change the
+     * results. Real users are never updated: test classes run in parallel and would lock each other.
+     * Users are inserted as the running user so setup-object DML doesn't mix with other test DML.
      */
-    public static void removeExistingCsms() {
-        List<User> csms = [SELECT Id FROM User WHERE Is_CSM__c = TRUE];
-        for (User csm : csms) {
-            csm.Is_CSM__c = false;
-        }
-        update csms;
-    }
-
-    /** Creates users as the running user so setup-object DML doesn't mix with the test's other DML. */
     public static Map<String, User> createCsms(Map<String, Integer> capacityByLastName) {
         Map<String, User> csmsByLastName = new Map<String, User>();
         for (String lastName : capacityByLastName.keySet()) {
             csmsByLastName.put(lastName, buildUser(lastName, true, capacityByLastName.get(lastName)));
         }
         System.runAs(new User(Id = UserInfo.getUserId())) {
-            removeExistingCsms();
             insert csmsByLastName.values();
         }
+        limitAssignmentTo(csmsByLastName.values());
         return csmsByLastName;
+    }
+
+    public static void limitAssignmentTo(List<User> users) {
+        OnboardingAssignmentService.eligibleUserIdsForTest = new Map<Id, User>(users).keySet();
     }
 
     public static User buildUser(String lastName, Boolean isCsm, Integer maxActiveOnboardings) {

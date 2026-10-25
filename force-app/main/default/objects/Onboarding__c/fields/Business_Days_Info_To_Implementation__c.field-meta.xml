@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Business_Days_Info_To_Implementation__c</fullName>
+    <description>Business days (weekends and company holidays excluded) between first reaching Gathering_Info and first reaching Implementation. Calculated by OnboardingBusinessDaysService from the Business Hours named in Onboarding Setting.</description>
+    <inlineHelpText>Working days only. Weekends and SkyPath company holidays are not counted.</inlineHelpText>
+    <label>Business Days: Info to Implementation</label>
+    <precision>6</precision>
+    <required>false</required>
+    <scale>1</scale>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

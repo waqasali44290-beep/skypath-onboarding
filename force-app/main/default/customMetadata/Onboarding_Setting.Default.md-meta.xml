@@ -7,6 +7,10 @@
         <value xsi:type="xsd:string">Onboarding_Backlog_Alert</value>
     </values>
     <values>
+        <field>Business_Hours_Name__c</field>
+        <value xsi:type="xsd:string">SkyPath Business Days</value>
+    </values>
+    <values>
         <field>Backlog_Queue_Name__c</field>
         <value xsi:type="xsd:string">Onboarding_Backlog</value>
     </values>
