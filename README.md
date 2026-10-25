@@ -77,6 +77,16 @@ If you'd rather do it by hand:
 
 Then open the **Onboarding Tracker** app from the App Launcher.
 
+### Managing the CSM team (no developer needed)
+
+Who is a CSM and how much they can take lives on the user record, under **Additional Information**:
+
+- **Add a CSM:** Setup > Users > Edit the user > tick **CSM** and set **Max Active Onboardings** (e.g. 4 for a new hire, 10 for a senior CSM). Assign the **Onboarding - CSM** permission set so they can work their onboardings.
+- **Change capacity:** edit **Max Active Onboardings**. It applies to the next onboarding that gets assigned.
+- **Remove a CSM:** untick **CSM** (or set capacity to 0). They stop getting new onboardings and keep the ones they already own. Deactivated users are skipped automatically.
+
+The admin doing this needs the **Onboarding - Admin** permission set, which grants edit access to those two fields. To see the current roster, create a list view in Setup > Users filtered on CSM = True with the CSM and Max Active Onboardings columns.
+
 ### Trying it out
 
 ```bash
